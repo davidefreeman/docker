@@ -1,0 +1,33 @@
+version: "2"
+services:
+  db:
+    image: couchbase/server
+    ports:
+      - "8091:8091"
+      - "8092:8092"
+      - "8093:8093"
+      - "8094:8094"
+      - "11210:11210"
+  worker:
+    image: couchbase/server
+    ports:
+      - "8091"
+      - "8092"
+      - "8093"
+      - "8094"
+      - "11210"
+    links:
+      - db
+  sync:
+    image: couchbase/sync-gateway
+    ports:
+      - "4984:4984"
+      - "4985:4985"
+    links:
+      - db
+    entrypoint: /opt/couchbase-sync-gateway/bin/sync_gateway /tmp/etc/sync_gateway/trident_config.json
+    volumes:
+      - "./config:/tmp/etc"
+
+volumes:
+  couchbase:

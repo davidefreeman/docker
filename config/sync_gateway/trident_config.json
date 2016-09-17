@@ -1,0 +1,23 @@
+{
+  "interface": ":4984",
+  "adminInterface": ":4985",
+  "log": ["*"],
+  "databases": {
+    "default": {
+      "server": "http://db:8091",
+      "bucket": "default",
+      "users": { "GUEST": { "disabled": false, "admin_channels": ["*"] } },
+      "allow_empty_password": true
+    },
+    "beer": {
+      "server": "http://db:8091",
+      "bucket": "beer-sync",
+      "shadow": {
+        "server": "http://db:8091",
+        "bucket": "beer-sample"
+      },
+      "users": { "GUEST": { "disabled": false, "admin_channels": ["*"] } },
+      "allow_empty_password": true
+    }
+  }
+}
